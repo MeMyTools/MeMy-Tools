@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeMy Tools</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #90caf9);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: #0288d1;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: inline-block;
+            font-size: 18px;
+        }
+        .navbar a:hover {
+            background: #0277bd;
+            border-radius: 5px;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        #searchInput {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Tools Section */
+        .search-results {
+            text-align: left;
+        }
+        .search-item {
+            background: #f1f1f1;
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-item a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+        .search-item:hover {
+            background: #e0e0e0;
+        }
+
+        /* Not Found Message */
+        #notFound {
+            display: none;
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            display: none;
+            text-align: left;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            background: #0288d1;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .contact-form button:hover {
+            background: #0277bd;
+        }
+
+        /* About Section */
+        .about-section {
+            display: none;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#" onclick="showHome()">Home</a>
+        <a href="#" onclick="showAbout()">About</a>
+        <a href="#" onclick="showContact()">Contact Us</a>
+    </div>
+
+    <div class="container" id="homeSection">
+        <h1>Welcome to MeMy Tools</h1>
+        <p>Explore a collection of useful online tools.</p>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search tools...">
+        </div>
+
+        <!-- Not Found Message -->
+        <div id="notFound">Tool not found! You can <a href="#" onclick="showContact()">contact us</a>, and we will add it.</div>
+
+        <!-- Tools List -->
+        <div class="search-results" id="searchResults">
+            <div class="search-item"><a href="https://memytools.blogspot.com/p/calculator.html">Tool 1 - Calculator</a></div>
+            <div class="search-item"><a href="https://memytools.blogspot.com/p/text-converter.html">Tool 2 - Text Converter</a></div>
+            <div class="search-item"><a href="https://memytools.blogspot.com/p/unit-converter.html">Tool 3 - Unit Converter</a></div>
+            <div class="search-item"><a href="https://memytools.blogspot.com/p/password-generator.html">Tool 4 - Password Generator</a></div>
+            <div class="search-item"><a href="https://memytools.blogspot.com/p/onex-autoclicker-body-font-family.html">Tool 5 - QR Code Generator</a></div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="container about-section" id="aboutSection">
+        <h1>About MeMy Tools</h1>
+        <p>MeMy Tools is a collection of online tools to make your life easier. We offer free and easy-to-use web applications to help with calculations, conversions, and more.</p>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="container contact-form" id="contactSection">
+        <h1>Contact Us</h1>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Your Name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Your Email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" placeholder="Your Message" rows="4" required></textarea>
+
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        // Auto-Search Functionality
+        document.getElementById("searchInput").addEventListener("input", function() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let items = document.querySelectorAll(".search-item");
+            let found = false;
+
+            items.forEach(item => {
+                let text = item.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    item.style.display = "block";
+                    found = true;
+                } else {
+                    item.style.display = "none";
+                }
+            });
+
+            // Show or hide "Tool not found" message
+            document.getElementById("notFound").style.display = found ? "none" : "block";
+        });
+
+        // Navigation Functions
+        function showHome() {
+            document.getElementById("homeSection").style.display = "block";
+            document.getElementById("aboutSection").style.display = "none";
+            document.getElementById("contactSection").style.display = "none";
+        }
+
+        function showAbout() {
+            document.getElementById("homeSection").style.display = "none";
+            document.getElementById("aboutSection").style.display = "block";
+            document.getElementById("contactSection").style.display = "none";
+        }
+
+        function showContact() {
+            document.getElementById("homeSection").style.display = "none";
+            document.getElementById("aboutSection").style.display = "none";
+            document.getElementById("contactSection").style.display = "block";
+        }
+
+        // Default: Show Home Section
+        showHome();
+    </script>
+
+</body>
+</html>
